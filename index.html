@@ -86,33 +86,76 @@ a:hover { text-decoration: underline; }
 
 /* HERO */
 .hero {
-  position: relative; min-height: 88vh;
+  position: relative; min-height: 95vh;
   display: flex; align-items: center; justify-content: center;
   overflow: hidden; text-align: center;
 }
 .hero-bg {
   position: absolute; inset: 0;
-  background: url('https://d8j0ntlcm91z4.cloudfront.net/user_38DvIrVBfKAlbHvCuX7mdJZHgNn/hf_20260514_182657_204c81a7-fe93-4bba-b6b8-584adf892aac.png') center/cover no-repeat;
+  background: url('https://d8j0ntlcm91z4.cloudfront.net/user_38DvIrVBfKAlbHvCuX7mdJZHgNn/hf_20260514_183719_0e25d1db-1028-4cd8-9e65-2101fdd306b7.png') center 40%/cover no-repeat;
+  transform: scale(1.03);
+  transition: transform 8s ease-out;
 }
-.hero-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(13,26,15,.72) 0%, rgba(13,26,15,.60) 60%, rgba(13,26,15,.85) 100%); }
-.hero-inner { position: relative; z-index: 2; max-width: 860px; padding: 0 24px; }
+.hero-bg.loaded { transform: scale(1); }
+/* Cinematic multi-stop overlay: dark edges, transparent center so the bull reads */
+.hero-overlay {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg,
+      rgba(10,20,12,.82) 0%,
+      rgba(10,20,12,.28) 32%,
+      rgba(10,20,12,.22) 52%,
+      rgba(10,20,12,.55) 74%,
+      rgba(10,20,12,.92) 100%),
+    linear-gradient(90deg,
+      rgba(10,20,12,.60) 0%,
+      rgba(10,20,12,.0) 40%,
+      rgba(10,20,12,.0) 60%,
+      rgba(10,20,12,.60) 100%);
+}
+/* Subtle film-grain texture */
+.hero::after {
+  content: '';
+  position: absolute; inset: 0; z-index: 1;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  opacity: .55;
+  pointer-events: none;
+}
+.hero-inner { position: relative; z-index: 2; max-width: 900px; padding: 0 24px; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  margin-bottom: 24px;
+}
+.hero-eyebrow-line { width: 36px; height: 1px; background: var(--gold); opacity: .7; }
 .hero-badge {
   display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(196,144,42,.18); border: 1px solid rgba(196,144,42,.5);
-  color: var(--gold); font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
-  padding: 6px 18px; border-radius: 30px; margin-bottom: 28px;
+  background: rgba(196,144,42,.15); border: 1px solid rgba(196,144,42,.45);
+  color: var(--gold); font-size: .72rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+  padding: 6px 18px; border-radius: 30px;
 }
-.hero h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); color: #fff; margin-bottom: 22px; font-weight: 800; letter-spacing: -.01em; }
+.hero h1 { font-size: clamp(2.6rem, 6.5vw, 4.8rem); color: #fff; margin-bottom: 24px; font-weight: 900; letter-spacing: -.02em; line-height: 1.08; text-shadow: 0 2px 32px rgba(0,0,0,.5); }
 .hero h1 em { color: var(--gold); font-style: normal; }
-.hero-sub { color: rgba(255,255,255,.78); font-size: clamp(1rem, 2vw, 1.15rem); max-width: 640px; margin: 0 auto 40px; line-height: 1.8; }
-.hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-.btn-primary { background: var(--gold); color: var(--dark); padding: 15px 34px; border-radius: 6px; font-weight: 700; font-size: .95rem; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: background .2s, transform .15s; }
-.btn-primary:hover { background: #d9a030; transform: translateY(-1px); text-decoration: none; color: var(--dark); }
-.btn-secondary { background: transparent; border: 2px solid rgba(255,255,255,.45); color: #fff; padding: 15px 34px; border-radius: 6px; font-weight: 600; font-size: .95rem; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: border-color .2s; }
-.btn-secondary:hover { border-color: rgba(255,255,255,.9); text-decoration: none; color: #fff; }
-.hero-scroll { position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,.4); font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 8px; }
-.hero-scroll::after { content: '↓'; font-size: 1rem; animation: bounce 2s infinite; }
-@keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+.hero-rule { width: 60px; height: 2px; background: var(--gold); margin: 0 auto 24px; border-radius: 2px; }
+.hero-sub { color: rgba(255,255,255,.80); font-size: clamp(.97rem, 2vw, 1.13rem); max-width: 620px; margin: 0 auto 44px; line-height: 1.85; text-shadow: 0 1px 12px rgba(0,0,0,.4); }
+.hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 52px; }
+.btn-primary { background: var(--gold); color: var(--dark); padding: 16px 36px; border-radius: 6px; font-weight: 700; font-size: .95rem; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: background .2s, transform .15s, box-shadow .2s; box-shadow: 0 4px 24px rgba(196,144,42,.35); }
+.btn-primary:hover { background: #d9a030; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(196,144,42,.5); text-decoration: none; color: var(--dark); }
+.btn-secondary { background: rgba(255,255,255,.08); backdrop-filter: blur(8px); border: 1.5px solid rgba(255,255,255,.4); color: #fff; padding: 16px 36px; border-radius: 6px; font-weight: 600; font-size: .95rem; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: border-color .2s, background .2s; }
+.btn-secondary:hover { border-color: rgba(255,255,255,.85); background: rgba(255,255,255,.14); text-decoration: none; color: #fff; }
+/* Floating proof chips inside hero */
+.hero-proof { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.hero-chip {
+  background: rgba(255,255,255,.10); backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 40px; padding: 8px 18px;
+  display: flex; align-items: center; gap: 8px;
+  color: rgba(255,255,255,.9); font-size: .8rem;
+}
+.hero-chip strong { color: var(--gold); font-weight: 800; font-family: 'Playfair Display', serif; font-size: .95rem; }
+.hero-scroll { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,.35); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 6px; z-index: 2; }
+.hero-scroll::after { content: '↓'; font-size: .95rem; animation: bounce 2.2s infinite; }
+@keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(7px)} }
 
 /* STATS STRIP */
 .stats-strip {
@@ -194,7 +237,7 @@ h2.s-title.light { color: #fff; }
   transition: box-shadow .25s, transform .25s;
 }
 .bull-card:hover { box-shadow: 0 12px 44px rgba(0,0,0,.10); transform: translateY(-3px); }
-.bull-img { height: 200px; background: var(--green-light); display: flex; align-items: center; justify-content: center; font-size: 4rem; position: relative; overflow: hidden; }
+.bull-img { height: 230px; background: var(--green-light); display: flex; align-items: center; justify-content: center; font-size: 4rem; position: relative; overflow: hidden; }
 .bull-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .bull-body { padding: 22px 20px; }
 .bull-name { font-size: 1rem; color: var(--dark); font-weight: 700; margin-bottom: 6px; font-family: 'Playfair Display', serif; }
@@ -209,7 +252,7 @@ h2.s-title.light { color: #fff; }
 .sale-section::before {
   content: '';
   position: absolute; inset: 0;
-  background: url('https://d8j0ntlcm91z4.cloudfront.net/user_38DvIrVBfKAlbHvCuX7mdJZHgNn/hf_20260514_182657_204c81a7-fe93-4bba-b6b8-584adf892aac.png') center/cover;
+  background: url('https://d8j0ntlcm91z4.cloudfront.net/user_38DvIrVBfKAlbHvCuX7mdJZHgNn/hf_20260514_183804_d990064f-d5e6-44bd-9ddc-a38c60da73c8.png') center/cover;
   opacity: .07;
 }
 .sale-inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
@@ -387,12 +430,22 @@ footer {
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
   <div class="hero-inner">
-    <div class="hero-badge">🐂 Somerville, Virginia · Est. 1900s</div>
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <div class="hero-badge">🐂 Somerville, Virginia · Est. 1900s</div>
+      <div class="hero-eyebrow-line"></div>
+    </div>
     <h1>A Century of Proven Genetics.<br><em>Built to Last.</em></h1>
+    <div class="hero-rule"></div>
     <p class="hero-sub">White Ridge Angus has spent over 100 years perfecting fertile, low-input, maternally oriented Black Angus cattle on the same Virginia land. When you buy from White Ridge, you're buying what actually works — in the field, on grass, year after year.</p>
     <div class="hero-btns">
       <a href="https://www.whiteridgeangus.com/bulls-for-sale" target="_blank" class="btn-primary">📋 View 2026 Bull Catalog</a>
-      <a href="#sale" class="btn-secondary">🎥 Watch Bull Videos</a>
+      <a href="#sale" class="btn-secondary">▶ Watch Bull Videos</a>
+    </div>
+    <div class="hero-proof">
+      <div class="hero-chip"><strong>100+</strong> Years on the Same Land</div>
+      <div class="hero-chip"><strong>$8,020</strong> Avg Sale Price</div>
+      <div class="hero-chip"><strong>22</strong> Annual Sales</div>
     </div>
   </div>
   <div class="hero-scroll">Scroll</div>
@@ -475,7 +528,7 @@ footer {
   <div class="container">
     <div class="legacy-grid">
       <div class="legacy-img fade">
-        <img src="https://d8j0ntlcm91z4.cloudfront.net/user_38DvIrVBfKAlbHvCuX7mdJZHgNn/hf_20260514_182704_29d608a0-f0ba-4f05-9af6-49371cd24b3f.png" alt="White Ridge Farm, Somerville, Virginia">
+        <img src="https://d8j0ntlcm91z4.cloudfront.net/user_38DvIrVBfKAlbHvCuX7mdJZHgNn/hf_20260514_184031_d73a73cd-3ada-46f3-96c2-55fbbaa3a57f.png" alt="White Ridge Farm, Somerville, Virginia">
         <div class="legacy-badge">White Ridge Farm<br>Somerville, Virginia</div>
       </div>
       <div class="legacy-content">
@@ -520,7 +573,7 @@ footer {
 
       <div class="bull-card fade">
         <div class="bull-img">
-          <img src="https://d8j0ntlcm91z4.cloudfront.net/user_38DvIrVBfKAlbHvCuX7mdJZHgNn/hf_20260514_182715_c48b288a-60f9-4086-9ead-eecf620b8fd2.png" alt="McCumber Radar 1105">
+          <img src="https://d8j0ntlcm91z4.cloudfront.net/user_38DvIrVBfKAlbHvCuX7mdJZHgNn/hf_20260514_183729_b388e59a-6dbd-40f6-8449-1f6b54b3a1c8.png" alt="McCumber Radar 1105">
         </div>
         <div class="bull-body">
           <div class="bull-trait">Calving Ease · Volume · Flesh</div>
@@ -531,7 +584,7 @@ footer {
 
       <div class="bull-card fade">
         <div class="bull-img">
-          <img src="https://d8j0ntlcm91z4.cloudfront.net/user_38DvIrVBfKAlbHvCuX7mdJZHgNn/hf_20260514_182732_49b8260c-882a-4b5d-8698-ba8cbd77cc0c.png" alt="Ginger Hill RattleOn 182">
+          <img src="https://d8j0ntlcm91z4.cloudfront.net/user_38DvIrVBfKAlbHvCuX7mdJZHgNn/hf_20260514_184023_63c7c648-3cd8-4662-a18f-3137467431ea.png" alt="Ginger Hill RattleOn 182">
         </div>
         <div class="bull-body">
           <div class="bull-trait">Heifer Safe · Maternal · Efficiency</div>
@@ -542,7 +595,7 @@ footer {
 
       <div class="bull-card fade">
         <div class="bull-img">
-          <img src="https://d8j0ntlcm91z4.cloudfront.net/user_38DvIrVBfKAlbHvCuX7mdJZHgNn/hf_20260514_182723_d7ff0b3c-862e-49f0-ab4a-3d7420de936e.png" alt="McCumber Palmer 295">
+          <img src="https://d8j0ntlcm91z4.cloudfront.net/user_38DvIrVBfKAlbHvCuX7mdJZHgNn/hf_20260514_183739_2b291460-c192-4cb9-bfd3-dc616d914ef0.png" alt="McCumber Palmer 295">
         </div>
         <div class="bull-body">
           <div class="bull-trait">No-Fault · Growth · Maternal Strength</div>
@@ -553,7 +606,7 @@ footer {
 
       <div class="bull-card fade">
         <div class="bull-img">
-          <img src="https://d8j0ntlcm91z4.cloudfront.net/user_38DvIrVBfKAlbHvCuX7mdJZHgNn/hf_20260514_182715_c48b288a-60f9-4086-9ead-eecf620b8fd2.png" alt="Skyline Resolve 307">
+          <img src="https://d8j0ntlcm91z4.cloudfront.net/user_38DvIrVBfKAlbHvCuX7mdJZHgNn/hf_20260514_183729_b388e59a-6dbd-40f6-8449-1f6b54b3a1c8.png" alt="Skyline Resolve 307">
         </div>
         <div class="bull-body">
           <div class="bull-trait">Muscle · Eye Appeal · Daughters</div>
@@ -564,7 +617,7 @@ footer {
 
       <div class="bull-card fade">
         <div class="bull-img">
-          <img src="https://d8j0ntlcm91z4.cloudfront.net/user_38DvIrVBfKAlbHvCuX7mdJZHgNn/hf_20260514_182723_d7ff0b3c-862e-49f0-ab4a-3d7420de936e.png" alt="Coleman Keen 717">
+          <img src="https://d8j0ntlcm91z4.cloudfront.net/user_38DvIrVBfKAlbHvCuX7mdJZHgNn/hf_20260514_183739_2b291460-c192-4cb9-bfd3-dc616d914ef0.png" alt="Coleman Keen 717">
         </div>
         <div class="bull-body">
           <div class="bull-trait">Length · Width · Performance</div>
@@ -575,7 +628,7 @@ footer {
 
       <div class="bull-card fade">
         <div class="bull-img">
-          <img src="https://d8j0ntlcm91z4.cloudfront.net/user_38DvIrVBfKAlbHvCuX7mdJZHgNn/hf_20260514_182732_49b8260c-882a-4b5d-8698-ba8cbd77cc0c.png" alt="Ginger Hill Black Bore 616">
+          <img src="https://d8j0ntlcm91z4.cloudfront.net/user_38DvIrVBfKAlbHvCuX7mdJZHgNn/hf_20260514_184023_63c7c648-3cd8-4662-a18f-3137467431ea.png" alt="Ginger Hill Black Bore 616">
         </div>
         <div class="bull-body">
           <div class="bull-trait">Heifer Safe · Muscle · Early Shedding</div>
@@ -795,6 +848,10 @@ footer {
 </div>
 
 <script>
+// Hero background subtle Ken Burns zoom-in on load
+var heroBg = document.querySelector('.hero-bg');
+if (heroBg) { var img = new Image(); img.onload = function(){ heroBg.classList.add('loaded'); }; img.src = 'https://d8j0ntlcm91z4.cloudfront.net/user_38DvIrVBfKAlbHvCuX7mdJZHgNn/hf_20260514_183719_0e25d1db-1028-4cd8-9e65-2101fdd306b7.png'; }
+
 // Mobile menu
 var menu = document.getElementById('mobile-menu');
 var hamburger = document.getElementById('hamburger');
